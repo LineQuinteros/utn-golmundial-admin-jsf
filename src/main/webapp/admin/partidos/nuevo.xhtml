@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Nuevo Partido</ui:define>
+    <ui:define name="cabecera">⚽ Nuevo Partido</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/partidos" styleClass="btn btn-outline btn-sm">
+            ⬅ Volver
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Crear un nuevo partido
+                <span class="badge">Nuevo</span>
+            </div>
+            <div class="card-body">
+                <h:form id="formPartido">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <h:outputLabel for="fase" value="Fase"/>
+                            <h:inputText id="fase" value="#{partidoBean.partidoSeleccionado.fase}" 
+                                         required="true" requiredMessage="La fase es obligatoria."/>
+                            <h:message for="fase" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="grupo" value="Grupo"/>
+                            <h:inputText id="grupo" value="#{partidoBean.partidoSeleccionado.grupo}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="seleccionLocal" value="Selección Local"/>
+                            <h:inputText id="seleccionLocal" value="#{partidoBean.partidoSeleccionado.seleccionLocal}" 
+                                         required="true" requiredMessage="La selección local es obligatoria."/>
+                            <h:message for="seleccionLocal" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="seleccionVisitante" value="Selección Visitante"/>
+                            <h:inputText id="seleccionVisitante" value="#{partidoBean.partidoSeleccionado.seleccionVisitante}" 
+                                         required="true" requiredMessage="La selección visitante es obligatoria."/>
+                            <h:message for="seleccionVisitante" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="fecha" value="Fecha y Hora (dd/MM/yyyy HH:mm)"/>
+                            <h:inputText id="fecha" value="#{partidoBean.partidoSeleccionado.fecha}" 
+                                         placeholder="Ej: 11/06/2026 12:00"
+                                         required="true" requiredMessage="La fecha es obligatoria."/>
+                            <h:message for="fecha" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="sede" value="Sede"/>
+                            <h:inputText id="sede" value="#{partidoBean.partidoSeleccionado.sede}"/>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <h:outputLabel for="estado" value="Estado del partido"/>
+                            <h:selectOneMenu id="estado" value="#{partidoBean.estado}">
+                                <f:selectItem itemValue="PROGRAMADO" itemLabel="Programado"/>
+                                <f:selectItem itemValue="EN_CURSO" itemLabel="En curso"/>
+                                <f:selectItem itemValue="FINALIZADO" itemLabel="Finalizado"/>
+                                <f:selectItem itemValue="CANCELADO" itemLabel="Cancelado"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Cancelar" styleClass="btn btn-outline" 
+                                         action="#{partidoBean.cancelar()}" immediate="true"/>
+                        <h:commandButton value="Crear Partido" styleClass="btn btn-gold" 
+                                         action="#{partidoBean.guardarNuevo()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

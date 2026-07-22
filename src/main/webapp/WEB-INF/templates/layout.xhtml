@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><ui:insert name="titulo">Admin UTN GolMundial</ui:insert></title>
+    <h:outputStylesheet library="css" name="estilos.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</h:head>
+
+<h:body>
+
+    <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h:link outcome="/admin/inicio" styleClass="brand-link">
+                <i class="fas fa-futbol"></i> UTN GolMundial
+                <span class="brand-sub">Admin</span>
+            </h:link>
+        </div>
+
+        <ul class="navbar-menu">
+            <ui:fragment rendered="#{loginBean.administrador}">
+                <li><h:link outcome="/admin/inicio" value="Inicio" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/partidos" value="Partidos" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/selecciones" value="Selecciones" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/grupos" value="Grupos" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/usuarios" value="Usuarios" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/reportes" value="Reportes" styleClass="nav-link"/></li>
+                <li><h:link outcome="/admin/auditoria" value="Auditoría" styleClass="nav-link"/></li>
+            </ui:fragment>
+        </ul>
+
+        <div class="navbar-user">
+            <ui:fragment rendered="#{loginBean.autenticado}">
+                <span class="user-placeholder">👤 #{loginBean.usuarioActual.nombre}</span>
+                <span class="user-role-badge">#{loginBean.usuarioActual.rol}</span>
+                <h:form style="display:inline;">
+                    <h:commandLink value="Salir" styleClass="nav-link salir-link" action="#{loginBean.salir()}"/>
+                </h:form>
+            </ui:fragment>
+            <ui:fragment rendered="#{not loginBean.autenticado}">
+                <h:link outcome="/login" value="Iniciar sesión" styleClass="nav-link"/>
+            </ui:fragment>
+        </div>
+    </nav>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title"><ui:insert name="cabecera">Panel de Control</ui:insert></h1>
+            <div class="page-actions"><ui:insert name="acciones"/></div>
+        </div>
+
+        <h:messages globalOnly="true" styleClass="messages" errorClass="msg-error" infoClass="msg-info" warnClass="msg-warn"/>
+
+        <div class="page-body">
+            <ui:insert name="contenido">
+                <div class="card">
+                    <div class="card-body text-center text-muted">
+                        Selecciona una opción del menú para comenzar.
+                    </div>
+                </div>
+            </ui:insert>
+        </div>
+    </main>
+
+    <!-- ===== PIE DE PÁGINA ===== -->
+    <footer class="footer">
+        <p>© 2026 UTN GolMundial - Panel Administrativo | Proyecto Integrador</p>
+    </footer>
+
+</h:body>
+</html>

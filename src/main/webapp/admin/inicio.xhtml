@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Inicio - Admin</ui:define>
+    <ui:define name="cabecera">Panel de Control</ui:define>
+
+    <ui:define name="contenido">
+        <div class="index-hero">
+            <h2>¡Bienvenido, <span>#{loginBean.usuarioActual.nombre}</span>!</h2>
+            <p>Gestiona el torneo UTN GolMundial 2026 desde este panel administrativo.</p>
+        </div>
+
+        <div class="accesos-grid">
+            <!-- Partidos -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(233, 69, 96, 0.15), rgba(233, 69, 96, 0.05)); border: 1px solid rgba(233, 69, 96, 0.2);">
+                <div class="icono">⚽</div>
+                <h3>Partidos</h3>
+                <p>Administra el calendario y registra resultados oficiales.</p>
+                <h:link outcome="/admin/partidos" styleClass="btn btn-primary mt-2">
+                    Gestionar partidos
+                </h:link>
+            </div>
+
+            <!-- Selecciones -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(245, 166, 35, 0.15), rgba(245, 166, 35, 0.05)); border: 1px solid rgba(245, 166, 35, 0.2);">
+                <div class="icono">🏳️</div>
+                <h3>Selecciones</h3>
+                <p>Gestiona las selecciones participantes del torneo.</p>
+                <h:link outcome="/admin/selecciones" styleClass="btn btn-primary mt-2">
+                    Gestionar selecciones
+                </h:link>
+            </div>
+
+            <!-- Grupos -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(0, 210, 160, 0.15), rgba(0, 210, 160, 0.05)); border: 1px solid rgba(0, 210, 160, 0.2);">
+                <div class="icono">📋</div>
+                <h3>Grupos</h3>
+                <p>Consulta los grupos del torneo.</p>
+                <h:link outcome="/admin/grupos" styleClass="btn btn-primary mt-2">
+                    Ver grupos
+                </h:link>
+            </div>
+
+            <!-- Usuarios -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(0, 180, 216, 0.15), rgba(0, 180, 216, 0.05)); border: 1px solid rgba(0, 180, 216, 0.2);">
+                <div class="icono">👥</div>
+                <h3>Usuarios</h3>
+                <p>Administra las cuentas y roles de los usuarios.</p>
+                <h:link outcome="/admin/usuarios" styleClass="btn btn-primary mt-2">
+                    Gestionar usuarios
+                </h:link>
+            </div>
+
+            <!-- Reportes -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(123, 47, 252, 0.15), rgba(123, 47, 252, 0.05)); border: 1px solid rgba(123, 47, 252, 0.2);">
+                <div class="icono">📊</div>
+                <h3>Reportes</h3>
+                <p>Consulta estadísticas y reportes del sistema.</p>
+                <h:link outcome="/admin/reportes" styleClass="btn btn-primary mt-2">
+                    Ver reportes
+                </h:link>
+            </div>
+
+            <!-- Auditoría -->
+            <div class="acceso-card" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 107, 107, 0.05)); border: 1px solid rgba(255, 107, 107, 0.2);">
+                <div class="icono">📋</div>
+                <h3>Auditoría</h3>
+                <p>Revisa el registro de acciones administrativas.</p>
+                <h:link outcome="/admin/auditoria" styleClass="btn btn-primary mt-2">
+                    Ver auditoría
+                </h:link>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

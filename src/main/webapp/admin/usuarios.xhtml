@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Administrar Usuarios</ui:define>
+    <ui:define name="cabecera">👥 Gestión de Usuarios</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+            🏠 Inicio
+        </h:link>
+        <h:link outcome="/admin/usuarios" styleClass="btn btn-primary btn-sm">
+            🔄 Refrescar
+        </h:link>
+        <h:form style="display:inline;">
+            <h:commandButton value="🎁 Bono masivo (saldo 0)" 
+                             styleClass="btn btn-gold btn-sm"
+                             action="#{usuarioBean.otorgarBonoMasivo()}"
+                             onclick="return confirm('¿Otorgar 1 coin a TODOS los clientes con saldo 0?');"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Lista de usuarios registrados
+                <span class="badge">#{usuarioBean.usuarios.size()} usuarios</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Saldo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{usuarioBean.usuarios}" var="u">
+                                <tr>
+                                    <td>#{u.id}</td>
+                                    <td>#{u.username}</td>
+                                    <td>#{u.nombre}</td>
+                                    <td>#{u.email}</td>
+                                    <td>
+                                        <span class="badge #{u.rol == 'ADMINISTRADOR' ? 'badge-danger' : 'badge-info'}">
+                                            #{u.rol}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <ui:fragment rendered="#{u.rol == 'ADMINISTRADOR'}">
+                                            <span class="badge badge-secondary">N/A</span>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{u.rol == 'CLIENTE'}">
+                                            <span class="badge #{u.saldo != null and u.saldo > 0 ? 'badge-success' : 'badge-danger'}">
+                                                #{u.saldo != null ? u.saldo : 0}
+                                            </span>
+                                        </ui:fragment>
+                                    </td>
+                                    <td>
+                                        <h:form>
+                                            <h:commandButton value="✏️ Editar"
+                                                             styleClass="btn btn-primary btn-sm"
+                                                             action="#{usuarioBean.prepararEditar(u)}"/>
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                            <ui:fragment rendered="#{empty usuarioBean.usuarios}">
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">
+                                        No hay usuarios registrados.
+                                    </td>
+                                </tr>
+                            </ui:fragment>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

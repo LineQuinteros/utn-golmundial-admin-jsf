@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Editar Usuario</ui:define>
+    <ui:define name="cabecera">👤 Editar Usuario</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+            🏠 Inicio
+        </h:link>
+        <h:link outcome="/admin/usuarios" styleClass="btn btn-outline btn-sm">
+            ⬅ Volver
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Datos del usuario
+                <span class="badge">ID: #{usuarioBean.usuarioSeleccionado.id}</span>
+            </div>
+            <div class="card-body">
+                <h:form id="formUsuario">
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                        <div>
+                            <div style="color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;">Usuario</div>
+                            <div style="font-weight: 600; color: #fff; padding: 0.4rem 0;">#{usuarioBean.usuarioSeleccionado.username}</div>
+                        </div>
+                        <div>
+                            <div style="color: var(--text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;">Email</div>
+                            <div style="font-weight: 600; color: #fff; padding: 0.4rem 0;">#{usuarioBean.usuarioSeleccionado.email}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <h:outputLabel for="nombre" value="Nombre completo"/>
+                            <h:inputText id="nombre" value="#{usuarioBean.usuarioSeleccionado.nombre}" 
+                                         required="true" 
+                                         requiredMessage="El nombre es obligatorio."/>
+                            <h:message for="nombre" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="rol" value="Rol del usuario"/>
+                            <h:selectOneMenu id="rol" value="#{usuarioBean.usuarioSeleccionado.rol}">
+                                <f:selectItem itemValue="CLIENTE" itemLabel="Cliente"/>
+                                <f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Cancelar" styleClass="btn btn-outline" 
+                                         action="#{usuarioBean.cancelar()}" immediate="true"/>
+                        <h:commandButton value="Guardar Cambios" styleClass="btn btn-gold" 
+                                         action="#{usuarioBean.guardar()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

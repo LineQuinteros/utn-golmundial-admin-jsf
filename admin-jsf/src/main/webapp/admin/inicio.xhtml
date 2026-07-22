@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Inicio - Admin</ui:define>
+    <ui:define name="cabecera">Panel de Control</ui:define>
+
+    <ui:define name="contenido">
+        <!-- Mensaje de bienvenida -->
+        <div class="index-hero">
+            <h2>¡Bienvenido, <span>#{loginBean.usuarioActual.nombre}</span>!</h2>
+            <p>Gestiona el torneo UTN GolMundial 2026 desde este panel administrativo.</p>
+        </div>
+
+        <!-- Tarjetas de acceso rápido -->
+        <div class="accesos-grid">
+            <!-- Partidos -->
+            <div class="acceso-card">
+                <div class="icono">⚽</div>
+                <h3>Partidos</h3>
+                <p>Administra el calendario y registra resultados oficiales.</p>
+                <h:link outcome="/admin/partidos" styleClass="btn btn-primary mt-2">
+                    Gestionar partidos
+                </h:link>
+            </div>
+
+            <!-- Selecciones -->
+            <div class="acceso-card">
+                <div class="icono">🏳️</div>
+                <h3>Selecciones</h3>
+                <p>Gestiona las selecciones participantes del torneo.</p>
+                <h:link outcome="/admin/selecciones" styleClass="btn btn-primary mt-2">
+                    Gestionar selecciones
+                </h:link>
+            </div>
+
+            <!-- Usuarios -->
+            <div class="acceso-card">
+                <div class="icono">👥</div>
+                <h3>Usuarios</h3>
+                <p>Administra las cuentas y roles de los usuarios.</p>
+                <h:link outcome="/admin/usuarios" styleClass="btn btn-primary mt-2">
+                    Gestionar usuarios
+                </h:link>
+            </div>
+
+            <!-- Reportes -->
+            <div class="acceso-card">
+                <div class="icono">📊</div>
+                <h3>Reportes</h3>
+                <p>Consulta estadísticas y reportes del sistema.</p>
+                <h:link outcome="/admin/reportes" styleClass="btn btn-primary mt-2">
+                    Ver reportes
+                </h:link>
+            </div>
+        </div>
+
+        <!-- Estadísticas rápidas (mock) -->
+        <div style="margin-top: 2rem;">
+            <div class="card">
+                <div class="card-header">
+                    Resumen del torneo
+                    <span class="badge">Actualizado</span>
+                </div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--gold);">48</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem;">Selecciones</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--gold);">104</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem;">Partidos</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--gold);">12</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem;">Grupos</div>
+                        </div>
+                        <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: var(--gold);">0</div>
+                            <div style="color: var(--text-muted); font-size: 0.8rem;">Usuarios registrados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

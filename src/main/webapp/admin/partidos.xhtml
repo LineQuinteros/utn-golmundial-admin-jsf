@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Administrar Partidos</ui:define>
+    <ui:define name="cabecera">⚽ Gestión de Partidos</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+            🏠 Inicio
+        </h:link>
+        <h:link outcome="/admin/partidos/nuevo" styleClass="btn btn-success btn-sm">
+            ➕ Nuevo Partido
+        </h:link>
+        <h:link outcome="/admin/partidos" styleClass="btn btn-primary btn-sm">
+            🔄 Refrescar
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Lista de partidos del Mundial 2026
+                <span class="badge">#{partidoBean.partidos.size()} partidos</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fase</th>
+                                <th>Grupo</th>
+                                <th>Local</th>
+                                <th>Visitante</th>
+                                <th>Fecha</th>
+                                <th>Sede</th>
+                                <th>Estado</th>
+                                <th>Resultado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{partidoBean.partidos}" var="p">
+                                <tr>
+                                    <td>#{p.id}</td>
+                                    <td>#{p.fase}</td>
+                                    <td>#{p.grupo}</td>
+                                    <td>#{p.seleccionLocal}</td>
+                                    <td>#{p.seleccionVisitante}</td>
+                                    <td>#{p.fecha}</td>
+                                    <td>#{p.sede}</td>
+                                    <td>
+                                        <span class="badge #{p.estado == 'FINALIZADO' ? 'badge-success' : p.estado == 'EN_CURSO' ? 'badge-warning' : p.estado == 'CANCELADO' ? 'badge-danger' : 'badge-info'}">
+                                            #{p.estado}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span rendered="#{p.golesLocal != null and p.golesVisitante != null}">
+                                            #{p.golesLocal} - #{p.golesVisitante}
+                                        </span>
+                                        <span rendered="#{p.golesLocal == null or p.golesVisitante == null}">-</span>
+                                    </td>
+                                    <td>
+                                        <h:form>
+                                            <h:commandButton value="✏️ Editar"
+                                                             styleClass="btn btn-primary btn-sm"
+                                                             action="#{partidoBean.prepararEditar(p)}"/>
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                            <ui:fragment rendered="#{empty partidoBean.partidos}">
+                                <tr>
+                                    <td colspan="10" class="text-center text-muted">
+                                        No hay partidos registrados.
+                                    </td>
+                                </tr>
+                            </ui:fragment>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <span><span class="badge badge-success">● Finalizado</span></span>
+                    <span><span class="badge badge-warning">● En curso</span></span>
+                    <span><span class="badge badge-info">● Programado</span></span>
+                    <span><span class="badge badge-danger">● Cancelado</span></span>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
+

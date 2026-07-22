@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Reportes</ui:define>
+    <ui:define name="cabecera">📊 Reportes del Sistema</ui:define>
+<ui:define name="acciones">
+    <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+        🏠 Inicio
+    </h:link>
+    <h:link outcome="/admin/reportes" styleClass="btn btn-primary btn-sm">
+        🔄 Refrescar
+    </h:link>
+</ui:define>
+
+    <ui:define name="contenido">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+
+            <div style="background: linear-gradient(135deg, rgba(233, 69, 96, 0.15), rgba(233, 69, 96, 0.05)); border: 1px solid rgba(233, 69, 96, 0.2); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">🏳️</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">#{reporteBean.totalSelecciones}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">Selecciones</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(245, 166, 35, 0.15), rgba(245, 166, 35, 0.05)); border: 1px solid rgba(245, 166, 35, 0.2); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">⚽</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--gold);">#{reporteBean.totalPartidos}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">Partidos</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(0, 210, 160, 0.15), rgba(0, 210, 160, 0.05)); border: 1px solid rgba(0, 210, 160, 0.2); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">📋</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--green);">#{reporteBean.totalGrupos}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">Grupos</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(0, 180, 216, 0.15), rgba(0, 180, 216, 0.05)); border: 1px solid rgba(0, 180, 216, 0.2); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">👥</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--blue);">#{reporteBean.totalUsuarios}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">Usuarios</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(123, 47, 252, 0.15), rgba(123, 47, 252, 0.05)); border: 1px solid rgba(123, 47, 252, 0.2); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">🪙</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--purple);">#{reporteBean.totalMonedas}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">UTNGolCoin</div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, rgba(233, 69, 96, 0.12), rgba(233, 69, 96, 0.04)); border: 1px solid rgba(233, 69, 96, 0.15); border-radius: var(--radius); padding: 1.5rem; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 0.25rem;">🎯</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">#{reporteBean.totalPredicciones}</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">Predicciones</div>
+            </div>
+
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

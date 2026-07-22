@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Administrar Grupos</ui:define>
+    <ui:define name="cabecera">📋 Gestión de Grupos</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/grupos" styleClass="btn btn-primary btn-sm">
+            🔄 Refrescar
+        </h:link>
+    </ui:define>
+
+<ui:define name="acciones">
+    <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+        🏠 Inicio
+    </h:link>
+
+</ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Lista de grupos del torneo
+                <span class="badge">#{grupoBean.grupos.size()} grupos</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{grupoBean.grupos}" var="g">
+                                <tr>
+                                    <td><strong>#{g.codigo}</strong></td>
+                                    <td>#{g.nombre}</td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

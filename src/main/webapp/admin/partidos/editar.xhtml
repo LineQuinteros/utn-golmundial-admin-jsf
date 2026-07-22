@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Editar Partido</ui:define>
+    <ui:define name="cabecera">⚽ Editar Resultado</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+            🏠 Inicio
+        </h:link>
+        <h:link outcome="/admin/partidos" styleClass="btn btn-outline btn-sm">
+            ⬅ Volver
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Registrar resultado oficial
+                <span class="badge">Partido ##{partidoBean.partidoSeleccionado.id}</span>
+            </div>
+            <div class="card-body">
+                <h:form id="formPartido">
+
+                    <!-- INFORMACIÓN DEL PARTIDO -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
+                        <div><strong>Local:</strong> #{partidoBean.partidoSeleccionado.seleccionLocal}</div>
+                        <div><strong>Visitante:</strong> #{partidoBean.partidoSeleccionado.seleccionVisitante}</div>
+                        <div><strong>Fase:</strong> #{partidoBean.partidoSeleccionado.fase}</div>
+                        <div><strong>Fecha:</strong> #{partidoBean.partidoSeleccionado.fecha}</div>
+                        <div><strong>Sede:</strong> #{partidoBean.partidoSeleccionado.sede}</div>
+                        <div>
+                            <strong>Estado actual:</strong> 
+                            <span class="badge #{partidoBean.partidoSeleccionado.estado == 'FINALIZADO' ? 'badge-success' : partidoBean.partidoSeleccionado.estado == 'EN_CURSO' ? 'badge-warning' : partidoBean.partidoSeleccionado.estado == 'CANCELADO' ? 'badge-danger' : 'badge-info'}">
+                                #{partidoBean.partidoSeleccionado.estado}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- FORMULARIO -->
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <h:outputLabel for="golesLocal" value="Goles Local"/>
+                            <h:inputText id="golesLocal" value="#{partidoBean.golesLocal}" 
+                                         required="true" 
+                                         requiredMessage="Ingrese los goles del local"/>
+                            <h:message for="golesLocal" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="golesVisitante" value="Goles Visitante"/>
+                            <h:inputText id="golesVisitante" value="#{partidoBean.golesVisitante}" 
+                                         required="true" 
+                                         requiredMessage="Ingrese los goles del visitante"/>
+                            <h:message for="golesVisitante" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <h:outputLabel for="estado" value="Estado del partido"/>
+                            <h:selectOneMenu id="estado" value="#{partidoBean.estado}">
+                                <f:selectItem itemValue="PROGRAMADO" itemLabel="Programado"/>
+                                <f:selectItem itemValue="EN_CURSO" itemLabel="En curso"/>
+                                <f:selectItem itemValue="FINALIZADO" itemLabel="Finalizado"/>
+                                <f:selectItem itemValue="CANCELADO" itemLabel="Cancelado"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Cancelar" styleClass="btn btn-outline" 
+                                         action="#{partidoBean.cancelar()}" immediate="true"/>
+                        <h:commandButton value="Guardar Resultado" styleClass="btn btn-gold" 
+                                         action="#{partidoBean.guardar()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

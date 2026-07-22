@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Administrar Selecciones</ui:define>
+    <ui:define name="cabecera">🏳️ Gestión de Selecciones</ui:define>
+
+<ui:define name="acciones">
+    <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+        🏠 Inicio
+    </h:link>
+    <h:link outcome="/admin/selecciones/nuevo" styleClass="btn btn-success btn-sm">
+        ➕ Añadir Selección
+    </h:link>
+    <h:link outcome="/admin/selecciones" styleClass="btn btn-primary btn-sm">
+        🔄 Refrescar
+    </h:link>
+</ui:define>
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Lista de selecciones participantes
+                <span class="badge">#{seleccionBean.selecciones.size()} selecciones</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Bandera</th>
+                                <th>Nombre</th>
+                                <th>Código FIFA</th>
+                                <th>Grupo</th>
+                                <th>Confederación</th>
+                                <th>Anfitrión</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{seleccionBean.selecciones}" var="s">
+                                <tr>
+                                    <td>#{s.id}</td>
+                                    <td style="font-size: 1.5rem;">🏳️</td>
+                                    <td>#{s.nombre}</td>
+                                    <td>#{s.codigoFifa}</td>
+                                    <td>#{s.grupo}</td>
+                                    <td>#{s.confederacion}</td>
+                                    <td>
+                                        <span class="badge #{s.esAnfitrion ? 'badge-success' : 'badge-info'}">
+                                            #{s.esAnfitrion ? '✅ Sí' : 'No'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <h:form>
+                                            <h:commandButton value="✏️ Editar"
+                                                             styleClass="btn btn-primary btn-sm"
+                                                             action="#{seleccionBean.prepararEditar(s)}"/>
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                            <ui:fragment rendered="#{empty seleccionBean.selecciones}">
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted">
+                                        No hay selecciones registradas.
+                                    </td>
+                                </tr>
+                            </ui:fragment>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

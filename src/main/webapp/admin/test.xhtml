@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Página de Prueba</ui:define>
+    <ui:define name="cabecera">🧪 Página de Prueba - SIN CACHÉ</ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 style="color: #e94560;">✅ ESTA PÁGINA ES NUEVA</h2>
+                <p style="color: #8899bb;">Si ves esto, el servidor está funcionando correctamente.</p>
+                <p style="color: #8899bb;">Fecha/Hora: <span id="fecha"></span></p>
+                <p style="color: #8899bb;">Número de partidos: #{partidoBean.partidos.size()}</p>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
+

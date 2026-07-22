@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Nueva Selección</ui:define>
+    <ui:define name="cabecera">🏳️ Nueva Selección</ui:define>
+
+    <ui:define name="acciones">
+        <h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+            🏠 Inicio
+        </h:link>
+        <h:link outcome="/admin/selecciones" styleClass="btn btn-outline btn-sm">
+            ⬅ Volver
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Crear una nueva selección
+                <span class="badge">Nuevo</span>
+            </div>
+            <div class="card-body">
+                <h:form id="formSeleccion">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <h:outputLabel for="nombre" value="Nombre"/>
+                            <h:inputText id="nombre" value="#{seleccionBean.seleccionSeleccionada.nombre}" 
+                                         required="true" 
+                                         requiredMessage="El nombre es obligatorio."/>
+                            <h:message for="nombre" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="codigoFifa" value="Código FIFA"/>
+                            <h:inputText id="codigoFifa" value="#{seleccionBean.seleccionSeleccionada.codigoFifa}" 
+                                         required="true" 
+                                         requiredMessage="El código FIFA es obligatorio."/>
+                            <h:message for="codigoFifa" styleClass="msg-error"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="grupo" value="Grupo"/>
+                            <h:inputText id="grupo" value="#{seleccionBean.seleccionSeleccionada.grupo}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <h:outputLabel for="confederacion" value="Confederación"/>
+                            <h:inputText id="confederacion" value="#{seleccionBean.seleccionSeleccionada.confederacion}"/>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <h:outputLabel for="esAnfitrion" value="¿Es país anfitrión?"/>
+                            <h:selectOneMenu id="esAnfitrion" value="#{seleccionBean.seleccionSeleccionada.esAnfitrion}">
+                                <f:selectItem itemValue="true" itemLabel="Sí"/>
+                                <f:selectItem itemValue="false" itemLabel="No"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Cancelar" styleClass="btn btn-outline" 
+                                         action="#{seleccionBean.cancelar()}" immediate="true"/>
+                        <h:commandButton value="Crear Selección" styleClass="btn btn-gold" 
+                                         action="#{seleccionBean.guardarNuevo()}"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

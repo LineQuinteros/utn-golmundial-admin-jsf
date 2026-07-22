@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<ui:composition template="/WEB-INF/templates/layout.xhtml">
+    <ui:define name="titulo">Auditoría</ui:define>
+    <ui:define name="cabecera">📋 Auditoría del Sistema</ui:define>
+
+
+    <ui:define name="acciones">
+<h:link outcome="/admin/inicio" styleClass="btn btn-outline btn-sm">
+        🏠 Inicio
+    </h:link>
+
+        <h:link outcome="/admin/auditoria" styleClass="btn btn-primary btn-sm">
+            🔄 Refrescar
+        </h:link>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <div class="card">
+            <div class="card-header">
+                Registro de acciones administrativas
+                <span class="badge">#{auditoriaBean.registros.size()} registros</span>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Acción</th>
+                                <th>Entidad</th>
+                                <th>Detalle</th>
+                                <th>Fecha/Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{auditoriaBean.registros}" var="a">
+                                <tr>
+                                    <td>#{a.id}</td>
+                                    <td>#{a.usuario}</td>
+                                    <td>
+                                        <span class="badge #{a.accion == 'REGISTRAR_RESULTADO' ? 'badge-success' : a.accion == 'ELIMINAR' ? 'badge-danger' : 'badge-info'}">
+                                            #{a.accion}
+                                        </span>
+                                    </td>
+                                    <td>#{a.entidad}</td>
+                                    <td>#{a.detalle}</td>
+                                    <td>#{a.fechaHora}</td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
